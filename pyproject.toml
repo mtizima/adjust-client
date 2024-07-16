@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "adjust-client"
+version = "0.1.0"
+description = "Adjust.com python API client"
+authors = ["Grebenshchikov Dmitry <mtizima@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.27.0"
+pydantic = "^2.8.2"
+tenacity = "^8.5.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+pytest-asyncio = "^0.23.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
