@@ -58,7 +58,7 @@ jobs:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.TEST_POETRY_PYPI_TOKEN_PYPI }}
       run: |
         poetry config repositories.test-pypi https://test.pypi.org/legacy/
-        poetry publish
+        poetry publish --repository test-pypi
 
   publish-prod:
     runs-on: ubuntu-latest
