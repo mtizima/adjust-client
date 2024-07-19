@@ -55,10 +55,11 @@ jobs:
 
     - name: Publish to TestPyPI
       env:
-        TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.TEST_POETRY_PYPI_TOKEN_PYPI }}
       run: |
-        poetry publish --repository testpypi
+        poetry config repositories.test-pypi https://test.pypi.org/legacy/
+        poetry config pypi-token.pypi $TWINE_PASSWORD
+        poetry publish
 
   publish-prod:
     runs-on: ubuntu-latest
