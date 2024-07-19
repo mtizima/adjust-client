@@ -55,10 +55,10 @@ jobs:
 
     - name: Publish to TestPyPI
       env:
-        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.TEST_POETRY_PYPI_TOKEN_PYPI }}
+        POETRY_REPOSITORIES_TESTPYPI_URL: https://test.pypi.org/legacy/
+        POETRY_PYPI_TOKEN_TESTPYPI: ${{ secrets.TEST_POETRY_PYPI_TOKEN_PYPI }}
       run: |
-        poetry config repositories.test-pypi https://test.pypi.org/legacy/
-        poetry publish --repository test-pypi
+        poetry publish -r testpypi
 
   publish-prod:
     runs-on: ubuntu-latest
