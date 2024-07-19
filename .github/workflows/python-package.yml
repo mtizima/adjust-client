@@ -58,7 +58,6 @@ jobs:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.TEST_POETRY_PYPI_TOKEN_PYPI }}
       run: |
         poetry config repositories.test-pypi https://test.pypi.org/legacy/
-        poetry config pypi-token.pypi $TWINE_PASSWORD
         poetry publish
 
   publish-prod:
@@ -84,7 +83,7 @@ jobs:
 
     - name: Publish to PyPI
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
       run: |
+        poetry config repositories.test-pypi https://pypi.org/legacy/
         poetry publish
