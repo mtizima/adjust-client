@@ -1,5 +1,10 @@
 # Adjust Client Library
 
+
+# adjust-client
+
+[![Build Status](https://github.com/mtizima/adjust-client/actions/workflows/python-package.yml/badge.svg)](https://github.com/mtizima/adjust-client/actions/workflows/python-package.yml)
+
 The Adjust Client Library is a Python library for sending events to Adjust using the HTTP API. It includes functionality for validation, error handling, and retry mechanisms.
 
 ## Installation
