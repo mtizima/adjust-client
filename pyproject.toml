@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "adjust-client"
-version = "0.1.1a0"
+version = "0.1.1a1"
 description = "Adjust.com python API client"
 authors = ["Grebenshchikov Dmitry <mtizima@gmail.com>"]
 license = "MIT License"
