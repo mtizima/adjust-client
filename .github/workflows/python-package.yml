@@ -85,5 +85,5 @@ jobs:
       env:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
       run: |
-        poetry config repositories.test-pypi https://pypi.org/legacy/
+        poetry config repositories.pypi https://pypi.org/legacy/
         poetry publish
