@@ -9,10 +9,9 @@ from adjust_client.config import AdjustClientConfig
 class EventData(BaseModel):
     idfa: str | None = None
     gps_adid: str | None = None
-    adid: str | None
-    ip_address: IPvAnyAddress | None
-    created_at_unix: int | None
-    created_at: str | None
+    ip_address: IPvAnyAddress | None = None
+    created_at_unix: int | None = None
+    created_at: str | None = None
 
     @model_validator(mode="before")
     def check_idfa_or_gps_adid(cls, values):
