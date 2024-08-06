@@ -75,7 +75,7 @@ async def test_handle_400_error(client):
 async def test_handle_500_error_with_retry(client):
     event_data = {
         'idfa': 'D2CADB5F-410F-4963-AC0C-2A78534BDF1E',
-        'adid': 'test_adid',
+        'gps_adid': 'test_adid',
         'ip_address': '192.168.0.1',
         'created_at_unix': 1625077800,
         'created_at': '2021-06-30T12:30:00Z'
