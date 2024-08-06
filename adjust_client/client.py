@@ -20,6 +20,14 @@ class EventData(BaseModel):
             raise ValueError('Either idfa or gps_adid must be provided')
         return values
 
+    def dict(self, *args, **kwargs):
+        result = super().dict(*args, **kwargs)
+        if 'idfa' in result and 'gps_adid' in result:
+            result.pop('gps_adid')
+        return result
+
+
+
 
 class AdjustClient:
     def __init__(self, config: AdjustClientConfig):
