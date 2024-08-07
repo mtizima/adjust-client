@@ -22,8 +22,10 @@ class EventData(BaseModel):
 
     def dict(self, *args, **kwargs):
         result = super().dict(*args, **kwargs)
-        if 'idfa' in result and 'gps_adid' in result:
+        if result.get("idfa") is not None:
             result.pop('gps_adid')
+        if result.get("gps_adid") is not None:
+            result.pop("idfa")
         return result
 
 
