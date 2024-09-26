@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, ANY
 
 import httpx
 import pytest
@@ -89,3 +89,43 @@ async def test_handle_500_error_with_retry(client):
 
         response = await client.send_event(event_token, event_data)
         assert response == {'success': True}
+
+@pytest.mark.skip
+@pytest.mark.asyncio
+async def test_callback_params(client):
+    """
+    Testing of encoding of callback parameters.
+    https://dev.adjust.com/en/api/s2s-api/events/#share-custom-data
+    """
+    event_data = {
+        'idfa': 'D2CADB5F-410F-4963-AC0C-2A78534BDF1E',
+        'ip_address': '192.168.0.1',
+        'created_at_unix': 1625077800,
+        'created_at': '2021-06-30T12:30:00Z',
+        'callback_params': {
+            "f0o": "bar",
+            "bar": "baz"
+        },
+    }
+    event_token = 'valid_event_token'
+
+    with patch('httpx.AsyncClient.get') as mock_get:
+        mock_response = httpx.Response(status_code=200, json={'success': True})
+        mock_get.return_value = mock_response
+
+        response = await client.send_event(event_token, event_data)
+
+        mock_get.assert_called_with(
+            'https://s2s.adjust.com/event', 
+            params={
+                'app_token': ANY,
+                'event_token': ANY,
+                "s2s": 1,
+                'idfa': ANY,
+                'ip_address': ANY,
+                'created_at_unix': ANY,
+                'created_at': ANY,
+                'callback_params': '%7B%22f0o%22%3A%22bar%22%2C%20%22bar%22%3A%22baz%22%7D',
+            },
+            headers=ANY
+        )
