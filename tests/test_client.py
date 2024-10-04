@@ -102,6 +102,7 @@ async def test_callback_params(client):
         'ip_address': '192.168.0.1',
         'created_at_unix': 1625077800,
         'created_at': '2021-06-30T12:30:00Z',
+        # Ordered dict is for test predictability. No need to use it in real app.
         'callback_params': OrderedDict([
             ("f0o", "bar"),
             ("bar", "baz"),
