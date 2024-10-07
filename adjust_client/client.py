@@ -1,5 +1,7 @@
+import json
+
 import httpx
-from pydantic import BaseModel, model_validator, IPvAnyAddress
+from pydantic import BaseModel, model_validator, IPvAnyAddress, field_serializer
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from adjust_client import exceptions as client_exc
@@ -12,6 +14,16 @@ class EventData(BaseModel):
     ip_address: IPvAnyAddress | None = None
     created_at_unix: int | None = None
     created_at: str | None = None
+    callback_params: dict[str, str] | None = None
+
+    @field_serializer('callback_params')
+    def serialize_callback_params(self, value: dict | None, _info):
+        """For detail refer to
+        [Share custom data](https://dev.adjust.com/en/api/s2s-api/events#share-custom-data)
+        """
+        if value is None:
+            return None
+        return json.dumps(value, separators=(',', ':'))
 
     @model_validator(mode="before")
     def check_idfa_or_gps_adid(cls, values):
@@ -27,8 +39,6 @@ class EventData(BaseModel):
         if result.get("gps_adid") is not None:
             result.pop("idfa")
         return result
-
-
 
 
 class AdjustClient:

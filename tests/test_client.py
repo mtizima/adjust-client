@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from unittest.mock import patch, ANY
 
 import httpx
@@ -90,7 +91,6 @@ async def test_handle_500_error_with_retry(client):
         response = await client.send_event(event_token, event_data)
         assert response == {'success': True}
 
-@pytest.mark.skip
 @pytest.mark.asyncio
 async def test_callback_params(client):
     """
@@ -102,10 +102,11 @@ async def test_callback_params(client):
         'ip_address': '192.168.0.1',
         'created_at_unix': 1625077800,
         'created_at': '2021-06-30T12:30:00Z',
-        'callback_params': {
-            "f0o": "bar",
-            "bar": "baz"
-        },
+        # Ordered dict is for test predictability. No need to use it in real app.
+        'callback_params': OrderedDict([
+            ("f0o", "bar"),
+            ("bar", "baz"),
+        ]),
     }
     event_token = 'valid_event_token'
 
@@ -125,7 +126,7 @@ async def test_callback_params(client):
                 'ip_address': ANY,
                 'created_at_unix': ANY,
                 'created_at': ANY,
-                'callback_params': '%7B%22f0o%22%3A%22bar%22%2C%20%22bar%22%3A%22baz%22%7D',
+                'callback_params': '{"f0o":"bar","bar":"baz"}',
             },
             headers=ANY
         )
