@@ -100,6 +100,7 @@ async def test_callback_params(client):
     event_data = {
         'idfa': 'D2CADB5F-410F-4963-AC0C-2A78534BDF1E',
         'ip_address': '192.168.0.1',
+        'adid': '82dfcfe2-aad1-4ac9-8ae6-10036d53e85e',
         'created_at_unix': 1625077800,
         'created_at': '2021-06-30T12:30:00Z',
         # Ordered dict is for test predictability. No need to use it in real app.
@@ -123,6 +124,7 @@ async def test_callback_params(client):
                 'event_token': ANY,
                 "s2s": 1,
                 'idfa': ANY,
+                'adid': ANY,
                 'ip_address': ANY,
                 'created_at_unix': ANY,
                 'created_at': ANY,
